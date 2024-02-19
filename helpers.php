@@ -42,3 +42,27 @@ function loadPartial($name) {
         echo "View '{$name} not found!'";
     }
 }
+
+/**
+* Inspect a value(s)
+* @param mixed $value
+* @return void aka nothing
+*/
+
+function inspect($value) {
+        echo '<pre?>';
+        var_dump($value);
+        echo '</pre>';
+}
+
+/**
+* Inspect a value(s) and die (function to kill script)
+* @param mixed $value
+* @return void aka nothing
+*/
+
+function inspectAndDie($value) {
+    echo '<pre?>';
+    die(var_dump($value));
+    echo '</pre>';
+}
