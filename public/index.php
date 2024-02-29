@@ -1,6 +1,17 @@
 <?php
+//everything starts here!
+
+
 require '../helpers.php';
 
-$uri = $_SERVER['REQUEST_URI'];
+require basePath('Router.php');
 
-require basePath('router.php');
+//This is important, line below this comment has to be above the require. Now we can access it anywhere
+$router = new Router();
+
+$routes = require basePath('routes.php');
+
+$uri = $_SERVER['REQUEST_URI'];
+$method = $_SERVER['REQUEST_METHOD'];
+
+$router->route($uri, $method);
