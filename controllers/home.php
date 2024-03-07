@@ -8,6 +8,12 @@ $db = new Database($config);
 $listings = $db->query('SELECT * From listings Limit 6')->fetchAll();
 
 //test it
-inspect($listings);
+// inspect($listings);
 
-loadView('home');
+loadView('home', [
+    'listings' => $listings
+]);
+
+//so to make this work, we essentially will be taking the LISTINGS array and setting its value
+//to the $listings fetch. Essentially all we're doing
+

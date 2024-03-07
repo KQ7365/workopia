@@ -17,10 +17,11 @@ function basePath($path = '') {
 * @return void aka nothing
 */
 
-function loadView($name) {
+function loadView($name, $data = []) {
     $viewPath = basePath("views/{$name}.view.php");
 // file_exists is built in PHP function to check file exist
     if (file_exists($viewPath)) {
+        extract($data);
         require $viewPath;
     } else {
         echo "View '{$name} not found!'";
@@ -66,3 +67,9 @@ function inspectAndDie($value) {
     die(var_dump($value));
     echo '</pre>';
 }
+
+//format salary function
+
+function formatSalary($salary) {
+    return '$' . number_format((floatval($salary)));
+};
