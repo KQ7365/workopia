@@ -8,10 +8,10 @@ class Database {
 
     public function __construct($config) {
         $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']}";
-
+        //this options is very important. especially line 14, tells how we want the data to come in!
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
         ];
         try {
             $this->conn = new PDO($dsn, $config['username'], $config['password'], $options);
