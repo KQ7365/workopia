@@ -3,7 +3,8 @@
 class Router {
     protected $routes = [];
 
-//create a method to automatically inject each function depending on request
+
+//create a method/new route to automatically inject each function depending on request
     public function registerRoute($method, $uri, $controller) {
         $this->routes[] = [
             'method' => $method,
