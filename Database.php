@@ -22,9 +22,15 @@ class Database {
 
     //Query the database!
     //will return a PDO statement because we want to this work with any fetch
-    public function query($query) {
+    public function query($query, $params = []) {
         try{
             $sth = $this->conn->prepare($query);
+
+            //Bind named params
+            foreach($params as $param => $value) {
+                $sth->bindValue(':' . $param, $value);
+            }
+
             $sth->execute();
             return $sth;
         } catch (PDOException $e) {
