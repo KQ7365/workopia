@@ -1,0 +1,16 @@
+{
+  "name": "kq7365/workopia-php",
+  "description": "Job Listing Application",
+  "authors": [
+    {
+      "name": "Kevin Q",
+      "email": "blank@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Framework\\": "Framework/",
+      "App\\": "App/"
+    }
+  }
+}
