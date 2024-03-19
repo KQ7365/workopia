@@ -18,7 +18,7 @@ function basePath($path = '') {
 */
 
 function loadView($name, $data = []) {
-    $viewPath = basePath("views/{$name}.view.php");
+    $viewPath = basePath("App/views/{$name}.view.php");
 // file_exists is built in PHP function to check file exist
     if (file_exists($viewPath)) {
         extract($data);
@@ -35,7 +35,7 @@ function loadView($name, $data = []) {
 */
 
 function loadPartial($name) {
-    $partialLoader = basePath("views/partials/{$name}.php");
+    $partialLoader = basePath("App/views/partials/{$name}.php");
 
     if(file_exists($partialLoader)) {
         require $partialLoader;

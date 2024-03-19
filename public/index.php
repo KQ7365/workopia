@@ -3,8 +3,8 @@
 
 
 require '../helpers.php';
-require basePath('Router.php');
-require basePath('Database.php');
+require basePath('Framework/Router.php');
+require basePath('Framework/Database.php');
 
 //This is important (instantiate the router), line below this comment has to be above the require. Now we can access it anywhere
 $router = new Router();
