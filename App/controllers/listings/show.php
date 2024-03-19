@@ -1,5 +1,7 @@
 <?php
 
+
+use Framework\Database;
 //getting the config from the database
 $config = require basePath('config/db.php');
 //instantiate the database
