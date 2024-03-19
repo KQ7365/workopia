@@ -40,12 +40,12 @@ class Router {
     }
 
     //NOW, we need to Route the request
-
+    //This is also where we are requiring a controller!
     public function route($uri, $method) {
         //now need to loop through all possible routes because all routes are added in an array and we need to see if it matches all the arguments'
         foreach($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === $method) {
-                require basePath($route['controller']);
+                require basePath('App/' . $route['controller']);
                 return;
             }
         }
