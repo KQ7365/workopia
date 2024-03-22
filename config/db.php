@@ -5,5 +5,5 @@ return [
     'port' => 3306,
     'dbname' => 'workopia',
     'username' => 'kevin',
-    'password' => '1Karleeq'
+    'password' => '1234'
 ];
