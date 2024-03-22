@@ -7,11 +7,15 @@ class Router {
 
 
 //create a method/new route to automatically inject each function depending on request
-    public function registerRoute($method, $uri, $controller) {
+    public function registerRoute($method, $uri, $action) {
+
+    list($controller, $controllerMethod) = explode('@', $action);
+
         $this->routes[] = [
             'method' => $method,
             'uri' => $uri,
-            'controller' => $controller
+            'controller' => $controller,
+            'controllerMethod' => $controllerMethod
         ];
     }
 
@@ -47,7 +51,13 @@ class Router {
         //now need to loop through all possible routes because all routes are added in an array and we need to see if it matches all the arguments'
         foreach($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === $method) {
-                require basePath('App/' . $route['controller']);
+                //Extract controller and controller method
+                $controller = 'App\\Controllers\\' . $route['controller'];
+                $controllerMethod = $route['controllerMethod'];
+                //instantiate the controller and call the method
+                $controllerInstance = new $controller();
+                //now take that instance and call the controller method
+                $controllerInstance->$controllerMethod();
                 return;
             }
         }
