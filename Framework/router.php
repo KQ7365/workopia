@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use App\Controllers\ErrorController;
+
 class Router {
     protected $routes = [];
 
@@ -17,14 +19,6 @@ class Router {
             'controller' => $controller,
             'controllerMethod' => $controllerMethod
         ];
-    }
-
-//Load error Page
-//setting the parameter to a default of 404
-    public function error($httpCode = 404){
-        http_response_code($httpCode);
-        loadView("error/{$httpCode}");
-        exit;
     }
 
 //Add a GET route
@@ -62,6 +56,6 @@ class Router {
             }
         }
         //now if that is not there, lets handle an error response. And do it outside of the loop
-  $this->error();
+  ErrorController::notFound();
     }
 };
