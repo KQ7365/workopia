@@ -21,7 +21,7 @@ class ListingController {
         //Using the Query method we made from Database.php and fetching all
         $listings = $this->db->query('SELECT * From listings')->fetchAll();
 
-        loadView('home', [
+        loadView('listings/index', [
             'listings' => $listings
         ]);
     }
@@ -33,9 +33,9 @@ class ListingController {
     }
 
       //show a single listing
-    public function show() {
+    public function show($params) {
        
-        $id = $_GET['id'] ?? '';
+        $id = $params['id'] ?? '';
         // inspect($id);
 
         //add params array now to protect DB
@@ -44,6 +44,12 @@ class ListingController {
         ];
 
         $listing = $this->db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
+
+        //check if listing exists
+        if(!$listing) {
+            ErrorController::notFound('Listing not found');
+            return;
+        }
 
         // inspect($listing);
 

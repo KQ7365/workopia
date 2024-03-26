@@ -1,12 +1,6 @@
-<?php  loadPartial('head'); ?>
-<?php  loadPartial('navbar'); ?>
-<?php  loadPartial('top-banner'); ?>
-
-
-
-
-
-
+<?=  loadPartial('head'); ?>
+<?=  loadPartial('navbar'); ?>
+<?=  loadPartial('top-banner'); ?>
 
     <!-- Job Listings -->
     <section>
