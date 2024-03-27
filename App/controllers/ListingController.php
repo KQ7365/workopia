@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 //we are using the database in this home page, so we must bring it in
 use Framework\Database;
+use Framework\Validation;
 
 class ListingController {
     //only allow this class to use the following variable:
@@ -18,6 +19,7 @@ class ListingController {
 
     //show all listings
     public function index() {
+
         //Using the Query method we made from Database.php and fetching all
         $listings = $this->db->query('SELECT * From listings')->fetchAll();
 
