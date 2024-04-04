@@ -67,7 +67,7 @@ class ListingController {
 
         //use to PHP functions to secure these fields
             //array_intersect_key: this built in function takes in 2 arrays, and returns new array as long as key is in both arrays!!!!!
-            //array_flip: So the allowedFields are not actualy 'keys', so wrapping it in this built in function that reverses and turns key into values and values into keys. 
+            //array_flip: So the allowedFields are not actually 'keys', so wrapping it in this built in function that reverses and turns key into values and values into keys. 
             //So now these value will be Keys and match the POST keys.
         $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
 
@@ -75,9 +75,31 @@ class ListingController {
         $newListingData['user_id'] = 1;
 
         //using built in array_map to loop through our sanitized helper function we created in helpers.php
-            //so forst argument is 'sanitize' because thats the name of the function/methid in helpers, and then our new listing data
+            //so first argument is 'sanitize' because thats the name of the function/method in helpers, and then our new listing data
             $newListingData = array_map('sanitize', $newListingData);
 
-            inspectAndDie($newListingData);
+        //now making required fields
+        $requiredFields = ['title', 'description', 'email', 'city', 'state'];
+
+        //now initialize errors array so if any fields blank a key and value of message and display in UI
+        $errors = [];
+
+        //now we need to loop through it all
+        foreach($requiredFields as $field) {
+           if(empty($newListingData[$field]) || !Validation::string ($newListingData[$field])) {
+            $errors[$field] = ucfirst($field) . ' is required';
+           }
+        }
+
+          if(!empty($errors)) {
+            //Reload view with errors
+            loadView('listings/create', [
+                'errors' => $errors,
+                'listing' => $newListingData
+            ]);
+          } else {
+            //submit data (or echo success as we'll get to this later)
+            echo 'Success';
+          }
         }
 }
