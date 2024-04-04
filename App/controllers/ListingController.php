@@ -37,26 +37,47 @@ class ListingController {
       //show a single listing
     public function show($params) {
        
-        $id = $params['id'] ?? '';
-        // inspect($id);
+                    $id = $params['id'] ?? '';
+                    // inspect($id);
 
-        //add params array now to protect DB
-        $params = [
-            'id' => $id
-        ];
+                    //add params array now to protect DB
+                    $params = [
+                        'id' => $id
+                    ];
 
-        $listing = $this->db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
+                    $listing = $this->db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
 
-        //check if listing exists
-        if(!$listing) {
-            ErrorController::notFound('Listing not found');
-            return;
-        }
+                    //check if listing exists
+                    if(!$listing) {
+                        ErrorController::notFound('Listing not found');
+                        return;
+                    }
 
-        // inspect($listing);
+                    // inspect($listing);
 
-        loadView('listings/show', [
-            'listing' => $listing
-        ]);
+                    loadView('listings/show', [
+                        'listing' => $listing
+                    ]);
                 }
+
+        //Store data in database (POST)
+                //lets make it secure so only those fields inputted 
+        public function store() {
+        $allowedFields = ['title', 'description', 'salary', 'tags', 'company', 'address', 'city', 'state', 'phone', 'email', 'requirements', 'benefits'];
+
+        //use to PHP functions to secure these fields
+            //array_intersect_key: this built in function takes in 2 arrays, and returns new array as long as key is in both arrays!!!!!
+            //array_flip: So the allowedFields are not actualy 'keys', so wrapping it in this built in function that reverses and turns key into values and values into keys. 
+            //So now these value will be Keys and match the POST keys.
+        $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
+
+        //just hardcoded for now
+        $newListingData['user_id'] = 1;
+
+        //using built in array_map to loop through our sanitized helper function we created in helpers.php
+            //so forst argument is 'sanitize' because thats the name of the function/methid in helpers, and then our new listing data
+            $newListingData = array_map('sanitize', $newListingData);
+
+            inspectAndDie($newListingData);
+        }
 }
