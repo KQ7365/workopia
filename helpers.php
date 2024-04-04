@@ -73,3 +73,10 @@ function inspectAndDie($value) {
 function formatSalary($salary) {
     return '$' . number_format((floatval($salary)));
 };
+
+//sanitize data function that takes in dirty data and returns good string
+//filter_var is built in function. trim is also built in function that removes whitespace
+//
+function sanitize($dirty) {
+    return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
+};
